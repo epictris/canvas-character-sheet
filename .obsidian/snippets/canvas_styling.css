@@ -86,8 +86,8 @@
 .canvas-node,
 .canvas-node-container,
 .canvas-node-content,
-.markdown-embed-content,
-.markdown-preview-view {
+.canvas-node .markdown-embed-content,
+.canvas-node .markdown-preview-view {
 contain: none;
 padding: 0px !important;
 border-radius: 0;
