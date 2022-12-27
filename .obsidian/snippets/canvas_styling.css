@@ -707,7 +707,7 @@ img[alt~=success] {
 
 .tilingpaper .markdown-preview-section {
   background: url("https://i.imgur.com/yhvtscC.png");
-  background-size: contain;
+  background-size: 100%;
   filter:drop-shadow(1px 1px 4px #111) brightness(95%) sepia(20%);
   font-family: "tox_typewriterregular";
   line-height: 16pt;
