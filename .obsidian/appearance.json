@@ -1,0 +1,20 @@
+{
+  "accentColor": "",
+  "cssTheme": "Minimal",
+  "theme": "obsidian",
+  "showViewHeader": true,
+  "nativeMenus": false,
+  "enabledCssSnippets": [
+    "ITS Alternate Themes",
+    "custom",
+    "S - Callouts",
+    "Custom",
+    "CustomFonts",
+    "CustomCanvas",
+    "canvas_styling",
+    "custom_fonts"
+  ],
+  "interfaceFontFamily": "",
+  "textFontFamily": "",
+  "baseFontSize": 14
+}

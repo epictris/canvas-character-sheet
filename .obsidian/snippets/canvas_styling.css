@@ -1,0 +1,917 @@
+/* DISABLE CANVAS NODES THAT DON'T REQUIRE INTERACTION (for UX purposes) */
+.canvas-node:has(.risklevel),
+.canvas-node:has(.notes) {
+  pointer-events: none;
+}
+/* DISABLE RESIZING & LINKING OF NODES THAT DON'T REQUIRE THESE FEATURES (for UX purposes) */
+.canvas-node:has(.callout[data-callout-metadata~=maxhp]) .canvas-node-resizer,
+.canvas-node:has(.callout[data-callout-metadata~=ac]) .canvas-node-resizer,
+.canvas-node:has(.callout[data-callout-metadata~=init]) .canvas-node-resizer,
+.canvas-node:has(.callout[data-callout-metadata~=speed]) .canvas-node-resizer,
+.canvas-node:has(.callout[data-callout-metadata~=prof]) .canvas-node-resizer,
+.canvas-node:has(.callout[data-callout-metadata~=hp]) .canvas-node-resizer,
+.canvas-node:has(.callout[data-callout-metadata~=temp]) .canvas-node-resizer,
+.canvas-node:has(.callout[data-callout-metadata~=ideas]) .canvas-node-resizer,
+.canvas-node:has(.callout[data-callout-metadata~=heals]) .canvas-node-resizer,
+.canvas-node:has(.callout[data-callout-metadata~=xplevel]) .canvas-node-resizer,
+.canvas-node:has(.callout[data-callout-metadata~=cp]) .canvas-node-resizer,
+.canvas-node:has(.callout[data-callout-metadata~=sp]) .canvas-node-resizer,
+.canvas-node:has(.callout[data-callout-metadata~=ep]) .canvas-node-resizer,
+.canvas-node:has(.callout[data-callout-metadata~=gp]) .canvas-node-resizer,
+.canvas-node:has(.callout[data-callout-metadata~=pp]) .canvas-node-resizer,
+.canvas-node:has(.profile-img) .canvas-node-resizer,
+.canvas-node:has(.deathsaves) .canvas-node-resizer,
+.canvas-node:has(.notes) .canvas-node-resizer,
+.canvas-node:has(.risklevel) .canvas-node-resizer,
+.canvas-node:has(.hitdice) .canvas-node-resizer {
+  display: none;
+}
+/* DISABLE LINKING OF NODES THAT DON'T REQUIRE LINKING (for UX purposes) */
+.canvas-node:has(.tilingpaper) .canvas-node-connection-point,
+.canvas-node:has(.scroll ) .canvas-node-connection-point,
+.canvas-node:has(.engagementthreats) .canvas-node-connection-point,
+.canvas-node:has(.inventory) .canvas-node-connection-point  {
+  display: none;
+}
+
+/* DISABLE CONTENT BLOCKER FOR NODES THAT REQUIRE DIRECT (1-click) interaction/hover events */
+.canvas-node:has(.deathsaves) .canvas-node-content-blocker,
+.canvas-node:has(.enhancements ) .canvas-node-content-blocker,
+.canvas-node:has(.scroll) .canvas-node-content-blocker,
+.canvas-node:has(.hitdice) .canvas-node-content-blocker {
+  display: none;
+}
+
+/* CANVAS/NODE SETTINGS */
+.canvas {
+  position: relative;
+}
+.canvas::before {
+  --image-width: 2000px;
+  --image-height: 1665px;
+  --image-scale: 25%;
+  --background-scale: 400%;  
+  content: "";
+  width: var(--background-scale);
+  height: var(--background-scale);
+  background: url("https://i.imgur.com/CZtsSMK.jpg");
+  position: absolute;
+  top: calc(-1 * var(--background-scale)/2 + 50%);
+  left: calc(-1 * var(--background-scale)/2 + 50%);
+  background-size: var(--image-scale);
+}
+.cm-scroller {
+  padding: 0 !important;
+}
+.cm-contentContainer {
+  padding: 0 !important;
+  margin: 0 !important;
+}
+.cm-sizer {
+  width: 100%;
+}
+.canvas-edges {
+  z-index: 0;
+}
+.canvas-node-label {
+  display: none;
+}
+.canvas-node-container {
+  background: none;
+}
+.canvas-node:not(.is-editing) .canvas-node-container {
+  border: none;
+  box-shadow: none;
+}
+.canvas-node,
+.canvas-node-container,
+.canvas-node-content,
+.markdown-embed-content,
+.markdown-preview-view {
+contain: none;
+padding: 0px !important;
+border-radius: 0;
+overflow: visible;
+will-change: transform;
+}
+
+.canvas-node-container:has(.canvas-node-content:not(.is-loaded)) {
+  border: 2px solid rgb(var(--canvas-color));
+  background: var(--background-primary);
+}
+.canvas-node-content:not(.is-loaded) .markdown-preview-sizer {
+  padding: 20px;
+  font-size: 15pt;
+  overflow: scroll;
+}
+
+/* LINKED NOTE HOVER SETTINGS */
+.hover-popover .markdown-preview-sizer {
+  padding: 20px;
+}
+.hover-popover {
+  border: 2px solid rgb(var(--canvas-color));
+}
+
+/* PREVIEW SETTINGS */
+.markdown-preview-pusher,
+.markdown-preview-view:before,
+.markdown-preview-view:after {
+  display: none !important;
+}
+
+/* OVERRIDE Default Obsidian Settings */
+.callout {
+  padding: 0;
+  margin: 0;
+  background: none;
+  mix-blend-mode: normal;
+}
+.callout-icon {
+  display: none;
+}
+img {
+  --image-muted: 1;
+  pointer-events: none;
+}
+
+/* RISK LEVEL */
+.canvas-node:has(.risklevel) {
+  z-index: 3 !important;
+  transform:rotate(3deg);
+}
+.risklevel p {
+  margin: 0;
+}
+.callout[data-callout-metadata~=risklevel] {
+  overflow: visible;
+}
+.callout[data-callout-metadata~=risklevel] .callout-content {
+  width:fit-content;
+  position: relative;
+  width: 700px;
+  filter:drop-shadow(2px 2px 4px #111)
+}
+.callout[data-callout-metadata~=risklevel] img[alt=background] {
+  position: relative;
+  width: 100%;
+}
+.callout[data-callout-metadata~=risklevel] img[alt=foreground] {
+  position: absolute;
+  top: 6%;
+  left: 3%;
+  width: 95% !important;
+  margin: 0 auto;
+}
+
+/* STAT STAMPS */
+.canvas-node:has(.callout[data-callout-metadata~=maxhp]),
+.canvas-node:has(.callout[data-callout-metadata~=ac]),
+.canvas-node:has(.callout[data-callout-metadata~=init]),
+.canvas-node:has(.callout[data-callout-metadata~=speed]),
+.canvas-node:has(.callout[data-callout-metadata~=prof]) {
+  z-index: 10 !important;
+}
+
+.callout[data-callout-metadata~=maxhp],
+.callout[data-callout-metadata~=ac],
+.callout[data-callout-metadata~=init],
+.callout[data-callout-metadata~=speed],
+.callout[data-callout-metadata~=prof] {
+  position: relative;
+  overflow: visible;
+  width: 100px;
+  height: 100px;
+}
+
+.callout[data-callout-metadata~=maxhp] img,
+.callout[data-callout-metadata~=ac] img,
+.callout[data-callout-metadata~=init] img,
+.callout[data-callout-metadata~=speed] img,
+.callout[data-callout-metadata~=prof] img {
+  pointer-events: none;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+}
+
+.callout[data-callout-metadata~=maxhp] .callout-title,
+.callout[data-callout-metadata~=ac] .callout-title,
+.callout[data-callout-metadata~=init] .callout-title,
+.callout[data-callout-metadata~=speed] .callout-title,
+.callout[data-callout-metadata~=prof] .callout-title {
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.callout[data-callout-metadata~=maxhp] .callout-title-inner,
+.callout[data-callout-metadata~=ac] .callout-title-inner,
+.callout[data-callout-metadata~=init] .callout-title-inner,
+.callout[data-callout-metadata~=speed] .callout-title-inner,
+.callout[data-callout-metadata~=prof] .callout-title-inner {
+  margin: 0;
+  font-size: 45px;
+  text-align: center;
+  font-weight: bold;
+  font-family: "austral_sansstamp_regular";
+}
+.canvas-node:has(.callout[data-callout-metadata~=maxhp]) { transform:rotate(-1deg) }
+.callout[data-callout-metadata~=maxhp]  .callout-title-inner { color: #a3002c }
+
+.canvas-node:has(.callout[data-callout-metadata~=ac]) { transform:rotate(5deg) }
+.callout[data-callout-metadata~=ac]  .callout-title-inner { color:#140701 }
+
+.canvas-node:has(.callout[data-callout-metadata~=init]) { transform:rotate(2deg) }
+.callout[data-callout-metadata~=init]  .callout-title-inner { color: #000071 }
+
+.canvas-node:has(.callout[data-callout-metadata~=speed]) { transform:rotate(-3deg) }
+.callout[data-callout-metadata~=speed]  .callout-title-inner { color: #154600 }
+
+.canvas-node:has(.callout[data-callout-metadata~=prof]) { transform:rotate(5deg) }
+.callout[data-callout-metadata~=prof]  .callout-title-inner { color: #bd7501 }
+
+/* ABILITY DETAILS */
+.canvas-node:has(.callout[data-callout-metadata~=abilitydetails]) {
+  transform:rotate(3deg);
+}
+.callout[data-callout-metadata~=abilitydetails] > .callout-content {
+  color: #000;
+  font-family: "tox_typewriterregular";
+  line-height: 16pt;
+  font-size: 15pt;
+}
+.callout[data-callout-metadata~=abilitydetails] p {
+  margin: 0;
+}
+
+/* PROFILE IMAGE */
+.canvas-node:has(.profile-img) {
+  z-index: 4 !important;
+  transform:rotate(6deg);
+}
+
+.profile-img p {
+  margin: 0;
+}
+
+.callout[data-callout-metadata~=profile-img] {
+  width: 400px;
+  position: relative;
+  margin: 0;
+  padding: 0;
+  filter: drop-shadow(1px 2px 5px #111);
+}
+.callout[data-callout-metadata~=profile-img] .callout-icon {
+display: none;
+}
+.callout[data-callout-metadata~=profile-img] img {
+  width: 100%;
+  filter: opacity(100%) sepia(40%);
+  -webkit-mask-size: 100%;
+  -webkit-mask-image: url("https://i.imgur.com/f4u7MRC.png");
+  pointer-events: none;
+}
+
+.callout[data-callout-metadata~=profile-img] .callout-title-inner {
+  mix-blend-mode: darken;
+}
+
+.callout[data-callout-metadata~=profile-img] * {
+  margin: 0;
+  padding: 0;
+  display: block;
+}
+
+.callout[data-callout-metadata~=profile-img]::before {
+  content: "";
+  width:100%;
+  height: 100%;
+  display: block;
+  position: absolute;
+  top: 0;
+  background-image: url("https://i.imgur.com/l9cPUkm.png");
+  background-size: 100% 100%;
+}
+
+/* NOTES */
+
+.canvas-node:has(.notes) {
+  z-index: 2 !important;
+  transform: rotate(-10deg);
+}
+
+.notes p {
+  margin: 0;
+}
+
+img[alt=notes] {
+  width: 450px;
+  pointer-events: none;
+  filter: drop-shadow(1px 1px 3px #111)
+}
+/* HP, TEMPHP, IDEAS, HEALS */
+.canvas-node:has(.callout[data-callout-metadata~=hp]),
+.canvas-node:has(.callout[data-callout-metadata~=temp]),
+.canvas-node:has(.callout[data-callout-metadata~=ideas]),
+.canvas-node:has(.callout[data-callout-metadata~=heals]) {
+  transform:rotate(-10deg);
+}
+
+.callout[data-callout-metadata~=hp]  .callout-title-inner,
+.callout[data-callout-metadata~=temp]  .callout-title-inner,
+.callout[data-callout-metadata~=ideas]  .callout-title-inner,
+.callout[data-callout-metadata~=heals]  .callout-title-inner {
+  font-family: "b_beach_oceanregular";
+  font-size: 35pt;
+  color: #000;
+  text-align: center;
+  width: 100%;
+
+}
+
+/* LEVEL */
+.canvas-node:has(.callout[data-callout-metadata~=xplevel]) { 
+  z-index: 10 !important;
+  transform: rotate(20deg) !important;
+}
+.canvas-node-container:has(.callout[data-callout-metadata~=xplevel]) {
+  contain: none;
+  overflow: visible;
+}
+.callout[data-callout-metadata~=xplevel] {
+  position: relative;
+  width: 150px;
+  height: 150px;
+}
+.callout[data-callout-metadata~=xplevel] p {
+  margin: 0;
+  top: 0;
+  left: 0;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  color: #c81f1d;
+  font-family: "austral_sansstamp_regular";
+}
+.callout[data-callout-metadata~=xplevel] .callout-content p:nth-child(1) {
+  top: 18px;
+  font-size: 14px
+}
+.callout[data-callout-metadata~=xplevel] .callout-content p:nth-child(2) {
+  top: 35px;
+  font-size: 60px;
+}
+.callout[data-callout-metadata~=xplevel] img {
+  pointer-events: none;
+}
+
+/* DEATH SAVES */
+.canvas-node:has(div.deathsaves){
+  transform:rotate(-16deg);
+  z-index: 9999 !important;
+}
+
+.canvas-node:has(div.deathsaves),
+.canvas-node-container:has(div.deathsaves),
+.canvas-node-content:has(.deathsaves),
+.markdown-embed-content:has(.deathsaves),
+div.deathsaves,
+div.deathsaves .callout,
+div.deathsaves .callout-content {
+border-radius: 50%;
+pointer-events:none;
+padding: 0px !important; 
+}
+
+div.deathsaves .markdown-preview-section {
+  border-radius: 50%;
+  pointer-events: none; 
+}
+
+div.deathsaves p {
+  pointer-events:all;
+  border-radius: 50%;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  margin: 0 !important;
+}
+
+div.deathsaves span {
+  border-radius: 50%;
+  pointer-events: all;
+}
+
+div.deathsaves .markdown-preview-sizer > div {
+  pointer-events: none;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.callout[data-callout-metadata~=deathsaves] {
+  filter:drop-shadow(0px 0px 5px rgb(22,22,22));
+  z-index: 1;
+  width: 400px;
+  height: 400px;
+  overflow: visible;
+}
+
+.callout[data-callout-metadata~=deathsaves] img{
+  position: absolute;
+  cursor: default;
+  pointer-events: none;
+  width: 100%;
+  height: 100%;
+}
+.callout[data-callout-metadata~=deathsaves] .callout-content {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  overflow: visible;
+}
+
+.callout[data-callout-metadata~=deathsaves] .callout-content > p > span {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0px;
+}
+.callout[data-callout-metadata~=deathsaves] .callout-content > p > label {
+  cursor: pointer;
+  position: absolute;
+  position: absolute;
+  opacity: 0;
+  z-index: 2;
+  transition: opacity, 0.25s;
+}
+.callout[data-callout-metadata~=deathsaves] .callout-content > p > input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+.callout[data-callout-metadata~=deathsaves] .callout-content> p > label:nth-child(4) {
+  top: 28px;
+  left: 69px;
+  width:49px;
+  height:49px;
+  background: url("https://i.imgur.com/kYrw6vT.png");
+  background-size: cover;
+}
+.callout[data-callout-metadata~=deathsaves] .callout-content> p > label:nth-child(7) {
+  top: 168px;
+  left: -5px;
+  width:49px;
+  height:49px;
+  background: url("https://i.imgur.com/kYrw6vT.png");
+  background-size: contain;
+  transform:rotate(-50deg);
+}
+.callout[data-callout-metadata~=deathsaves] .callout-content> p > label:nth-child(10) {
+  top: 319px;
+  left: 69px;
+  width:49px;
+  height:49px;
+  background: url("https://i.imgur.com/kYrw6vT.png");
+  background-size: contain;
+  transform:rotate(250deg);
+}
+.callout[data-callout-metadata~=deathsaves] .callout-content> p > label:nth-child(13) {
+  top: 319px;
+  left: 283px;
+  width:49px;
+  height:49px;
+  background: url("https://i.imgur.com/TmVzWTC.png");
+  background-size: contain;
+  transform:rotate(190deg);
+}
+.callout[data-callout-metadata~=deathsaves] .callout-content> p > label:nth-child(16) {
+  top: 168px;
+  left: 356px;
+  width:49px;
+  height:49px;
+  background: url("https://i.imgur.com/TmVzWTC.png");
+  background-size: contain;
+  transform:rotate(140deg);
+}
+.callout[data-callout-metadata~=deathsaves] .callout-content> p > label:nth-child(19) {
+  top: 28px;
+  left: 283px;
+  width:49px;
+  height:49px;
+  background: url("https://i.imgur.com/TmVzWTC.png");
+  background-size: contain;
+  transform:rotate(90deg);
+}
+#f1:checked + label,
+#f2:checked + label,
+#f3:checked + label, 
+#s1:checked + label, 
+#s2:checked + label, 
+#s3:checked + label {
+  opacity: 1;
+}
+
+* {
+  --f1:0;
+  --f2:0;
+  --f3:0;
+  --s1:0;
+  --s2:0;
+  --s3:0;
+}
+
+#f1:checked + label + br + input + label + br + input + label + br + input + label + br + input + label + br + input + label + br + span img {
+  --f1: 1;
+}
+#f2:checked + label + br + input + label + br + input + label + br + input + label + br + input + label + br + span img {
+  --f2: 1;
+}
+#f3:checked + label + br + input + label + br + input + label + br + input + label + br + span img {
+  --f3: 1;
+}
+
+#s1:checked + label + br + input + label + br + input + label + br + span + br + span img {
+  --s1: 1;
+}
+#s2:checked + label + br + input + label + br + span + br + span img {
+  --s2: 1;
+}
+#s3:checked + label + br + span + br + span img {
+  --s3: 1;
+}
+
+img[alt~=failure] {
+  opacity: calc(var(--f1) * var(--f2) * var(--f3)) !important;
+}
+
+img[alt~=success] {
+  opacity: calc(var(--s1) * var(--s2) * var(--s3)) !important;
+}
+
+
+/* SCROLL */
+.canvas-node:has(.scroll) {
+  z-index: 3 !important;
+}
+
+.scroll p {
+  margin: 0;
+}
+
+.callout[data-callout-metadata~=scroll] {
+  position: relative;
+  overflow: visible;
+  font-family: "half-elven_condensedcondensed";
+  --link-decoration-hover: none;
+  --link-color: rgb(172, 55, 0);
+  --link-color-hover: rgb(225, 150, 0);
+  width: 700px;
+  filter:drop-shadow(1px 1px 4px rgb(22,22,22));
+}
+
+.callout[data-callout-metadata~=scroll] .callout-content:before {
+  content: "";
+  background: url("https://i.imgur.com/kfhu5j0.png ");
+  width: 700px;
+  height: 271px;
+  background-size: 100%;
+  background-repeat: no-repeat;
+  display: block;
+  position: absolute;
+  left: 0;
+  top: 0;
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
+}
+
+.callout[data-callout-metadata~=scroll] > .callout-content  {
+  margin-top: 265px;
+  padding-left: 80px;
+  padding-right: 80px;
+  padding-bottom: 90px;
+  background:  url("https://i.imgur.com/72jfgmD.png");
+  background-size: 100%;
+  background-repeat: repeat-y;
+  background-position-y: -76px;
+}
+
+.callout[data-callout-metadata~=spellstats] table {
+  width: 100%;
+  margin-top: 0;
+}
+
+.callout[data-callout-metadata~=spellstats] table input {
+  mix-blend-mode: darken;
+  background-color: #fff;
+  border-color: #000;
+  cursor: pointer;
+  padding: 10px;
+}
+
+.callout[data-callout-metadata~=spellstats] table input:checked {
+  mix-blend-mode: darken;
+  background-color: #fff;
+  border-color: #000;
+}
+
+.callout[data-callout-metadata~=spellstats] table input:checked:after {
+  top: 0;
+  left: 0;
+  background-image: none !important;
+  border-radius: 50%;
+  -webkit-mask-image: none;
+  background-size: 100%;
+  width: 100%;
+  height: 100%;
+  background-color:rgb(172, 55, 0);
+  mix-blend-mode: darken;
+  cursor: pointer;
+}
+
+.callout[data-callout-metadata~=spellstats] th  {
+  font-size: 20px;
+  color: #000;
+  font-weight: 400;
+  border: none;
+}
+.callout[data-callout-metadata~=spellstats] td  {
+  font-size: 30px;
+  color: #000;
+  font-weight: 800;
+  border: none;
+}
+
+.callout[data-callout-metadata~=spells] th {
+  display: none;
+}
+
+.callout[data-callout-metadata~=spells] table {
+  width:100%;
+  margin-top: 0;
+}
+
+.callout[data-callout-metadata~=spells] td {
+  --table-text-size: 20px !important;
+  font-weight: 400;
+  padding-top: 0px;
+  padding-bottom: 0px;
+  border: none;
+  color: #000;
+}
+
+.callout[data-callout-metadata~=spells] tr td:first-child {
+  font-weight: 800;
+}
+
+.callout[data-callout-metadata~=scroll]:after {
+  position: absolute;
+  content: "";
+  display: block;
+  width:100%;
+  height: 100%;
+  top: 35px;
+  background: url("https://i.imgur.com/ShxQaOp.png");
+  background-repeat: no-repeat;
+  background-position: 100% 100%;
+  background-size: 100%;
+  pointer-events: none;
+}
+
+/* CHARACTER ASSESSMENT */
+.canvas-node:has(.assessment) {
+  z-index: 1 !important;
+}
+
+/* ENHANCEMENTS */
+.canvas-node:has(.enhancements) {
+  z-index: 4 !important;
+}
+
+/* DETAILS */
+.canvas-node:has(.details) {
+  z-index: 1 !important;
+}
+
+.tilingpaper .markdown-preview-section {
+  background: url("https://i.imgur.com/yhvtscC.png");
+  background-size: contain;
+  filter:drop-shadow(1px 1px 4px #111) brightness(95%) sepia(20%);
+  font-family: "tox_typewriterregular";
+  line-height: 16pt;
+  color: #000;
+  --link-decoration: none;
+  --link-color: rgb(0, 0, 0);
+  --link-color-hover: rgb(184, 184, 184);
+  
+}
+
+.tilingpaper a {
+  font-weight: 800;
+}
+
+.tilingpaper .markdown-preview-section {
+  padding-top: 10px;
+  width: 700px;
+}
+
+.tilingpaper .markdown-preview-section > div {
+  width: 90%;
+  margin: 0 auto;
+}
+
+.callout[data-callout-metadata~=t-w] table {
+  width: 100%;
+  margin: 0;
+}
+.callout[data-callout-metadata~=t-nh] thead {
+  display: none !important;
+}
+.callout[data-callout-metadata~=t-nh] table tbody tr:first-child td {
+  border-top: none;
+}
+
+.tilingpaper td {
+  padding-left: 10px !important;
+  font-size: 13pt;
+}
+
+.tilingpaper div {
+  --folding-offset: 0;
+}
+
+/* INVENTORY */
+.canvas-node:has(.inventory) {
+  z-index: 1 !important;
+}
+
+.inventory { 
+  --folding-offset: 0;
+  --table-border-width: 1px;
+  --table-row-last-border-width: 1px;
+  --table-border-color: #b52c2c;
+}
+.inventory .markdown-preview-section {
+  width:500px;
+  position: relative;
+  filter:drop-shadow(1px 1px 5px #111) sepia(10%);
+  overflow: hidden;
+  background: url("https://i.imgur.com/LRJZaXU.jpg");
+  background-size: 100%;
+  background-repeat: repeat-y;
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering:crisp-edges;
+}
+
+.inventory  img {
+  margin-top: 5px;
+}
+
+.inventory table {
+  margin: 0 auto;
+  width: 85%;
+  margin-top: -10px;
+}
+
+.inventory td {
+  color:#000;
+  border-right: none;
+  border-left: none;
+  border-top: none;
+  font-family: 'morsalregular';
+  font-size: 12pt;
+  font-weight: 800;
+  padding: 0px 20px !important;
+  line-height: 10pt;
+  padding-top: 9px !important;
+}
+
+.inventory tr td:nth-child(2) {
+  text-align: right;
+}
+
+.inventory thead {
+  display: none;
+}
+
+/* COINS */
+.canvas-node:has(.callout[data-callout-metadata~=cp]),
+.canvas-node:has(.callout[data-callout-metadata~=sp]),
+.canvas-node:has(.callout[data-callout-metadata~=ep]),
+.canvas-node:has(.callout[data-callout-metadata~=gp]),
+.canvas-node:has(.callout[data-callout-metadata~=pp]) {
+  z-index: 10 !important;
+}
+
+.markdown-preview-view:has(.callout[data-callout-metadata~=cp])::before,
+.markdown-preview-view:has(.callout[data-callout-metadata~=cp])::after,
+.markdown-preview-view:has(.callout[data-callout-metadata~=sp])::before,
+.markdown-preview-view:has(.callout[data-callout-metadata~=sp])::after,
+.markdown-preview-view:has(.callout[data-callout-metadata~=ep])::before,
+.markdown-preview-view:has(.callout[data-callout-metadata~=ep])::after,
+.markdown-preview-view:has(.callout[data-callout-metadata~=gp])::before,
+.markdown-preview-view:has(.callout[data-callout-metadata~=gp])::after,
+.markdown-preview-view:has(.callout[data-callout-metadata~=pp])::before,
+.markdown-preview-view:has(.callout[data-callout-metadata~=pp])::after {
+  display: none !important;
+}
+
+.callout[data-callout-metadata~=cp] .callout-title-inner,
+.callout[data-callout-metadata~=sp] .callout-title-inner,
+.callout[data-callout-metadata~=ep] .callout-title-inner,
+.callout[data-callout-metadata~=gp] .callout-title-inner,
+.callout[data-callout-metadata~=pp] .callout-title-inner {
+  padding-top: 21px;
+  font-family: 'morsalregular', cursive;
+  font-size: 17pt;
+  font-weight: 800;
+  margin: 0 auto;
+  text-align: center;
+  color: #000;
+}
+
+/* ENGAGEMENT THREATS */
+.canvas-node:has( .engagementthreats) {
+  z-index: 1 !important;
+}
+
+.engagementthreats .markdown-preview-section {
+  width:700px;
+  background: url("https://i.imgur.com/jxz716s.png");
+  background-size: 100%;
+  filter:drop-shadow(1px 1px 3px #111);
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering:crisp-edges;
+  padding-top: 10px;
+}
+
+.engagementthreats {
+  --folding-offset: 0;
+}
+
+.engagementthreats img {
+  width: 80%;
+  padding-left: 5%;
+}
+
+.engagementthreats table {
+  width: 90%;
+  margin: 0 auto;
+}
+
+.engagementthreats td {
+  font-family: "tox_typewriterregular";
+  color: #000;
+  font-size: 12pt;
+}
+
+.engagementthreats th {
+  font-family: "times_new_roman_cyrregular";
+  color: #000 !important;
+  border-left: none;
+  border-right: none;
+}
+
+/* HIT DICE */
+.canvas-node:has(.hitdice) {
+  z-index: 9999 !important;
+  transform:rotate(20deg);
+}
+.dice-roller-button {
+  filter:drop-shadow(1px 1px 4px #111);
+  --image-width: 304px;
+  --image-height: 320px;
+  --scaling: 0.45;
+  opacity: 1;
+  width: calc(var(--image-width) * var(--scaling));
+  height: calc(var(--image-height) * var(--scaling));
+  margin: 0 !important;
+  background-image: url("https://i.imgur.com/JwcJBI2.png");
+  transition: opacity, 300ms;
+  background-size: contain;
+  transition-delay: 2s;
+}
+.dice-roller-button:active {
+  opacity: 0;
+  transition: opacity, 0ms;
+}
+.dice-roller-button * {
+  display: none;
+}
+.dice-roller .dice-roller-result {
+  display: none;
+}
+
+

@@ -1,0 +1,174 @@
+{
+  "main": {
+    "id": "b513acec621eb9b5",
+    "type": "split",
+    "children": [
+      {
+        "id": "d6f5ce0980711f0a",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "9c594be18b517d19",
+            "type": "leaf",
+            "state": {
+              "type": "canvas",
+              "state": {
+                "file": "Characters/Diero Falone/Canvas - Diero Falone.canvas",
+                "viewState": {
+                  "x": 599.5,
+                  "y": 551,
+                  "zoom": -1.096432994754892,
+                  "snapToGrid": false
+                }
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "cc4239dd1899dead",
+    "type": "split",
+    "children": [
+      {
+        "id": "578bc4ace5e11939",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "b60afae08e103db8",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "byModifiedTime"
+              }
+            }
+          },
+          {
+            "id": "0327ef4933cb7d88",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "diero",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "6ce3d0fe0720a3c3",
+            "type": "leaf",
+            "state": {
+              "type": "starred",
+              "state": {}
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "33cc6466e889cfa4",
+    "type": "split",
+    "children": [
+      {
+        "id": "5c46ea56b1bfdf2b",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "830ddc78116b8a08",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "Characters/Diero Falone/Canvas - Diero Falone.canvas",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": false
+              }
+            }
+          },
+          {
+            "id": "61ea6ee826af2d6e",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "Characters/Diero Falone/Canvas - Diero Falone.canvas",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "12de4094c5af310e",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true
+              }
+            }
+          },
+          {
+            "id": "102a50d3cd3f99b5",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "Characters/Diero Falone/Canvas - Diero Falone.canvas"
+              }
+            }
+          },
+          {
+            "id": "1bbe4f3d604d023f",
+            "type": "leaf",
+            "state": {
+              "type": "advanced-tables-toolbar",
+              "state": {}
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 200,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:Open quick switcher": false,
+      "graph:Open graph view": false,
+      "canvas:Create new canvas": false,
+      "daily-notes:Open today's daily note": false,
+      "templates:Insert template": false,
+      "command-palette:Open command palette": false
+    }
+  },
+  "active": "9c594be18b517d19",
+  "lastOpenFiles": [
+    "Characters/Diero Falone/Level - Diero Falone.md",
+    "Characters/Diero Falone/Canvas - Diero Falone.canvas",
+    "Wiki/Eldritch Blast.md",
+    "Wiki/Hellish Rebuke.md",
+    "Wiki/Expeditious Retreat.md",
+    "Wiki/Misty Step.md",
+    "Wiki/Invisibility.md",
+    "Wiki/Condition - Invisible.md",
+    "Wiki/Light.md",
+    "Speak with Animals.md"
+  ]
+}
