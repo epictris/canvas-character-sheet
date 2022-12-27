@@ -4,11 +4,11 @@
     "type": "split",
     "children": [
       {
-        "id": "d6f5ce0980711f0a",
+        "id": "214fd8085e77190d",
         "type": "tabs",
         "children": [
           {
-            "id": "9c594be18b517d19",
+            "id": "cc9b4db4763b1f10",
             "type": "leaf",
             "state": {
               "type": "canvas",
@@ -158,17 +158,17 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "9c594be18b517d19",
+  "active": "b60afae08e103db8",
   "lastOpenFiles": [
-    "Characters/Diero Falone/Level - Diero Falone.md",
+    "README.md",
     "Characters/Diero Falone/Canvas - Diero Falone.canvas",
+    "Characters/Diero Falone/Level - Diero Falone.md",
     "Wiki/Eldritch Blast.md",
     "Wiki/Hellish Rebuke.md",
     "Wiki/Expeditious Retreat.md",
     "Wiki/Misty Step.md",
     "Wiki/Invisibility.md",
     "Wiki/Condition - Invisible.md",
-    "Wiki/Light.md",
-    "Speak with Animals.md"
+    "Wiki/Light.md"
   ]
 }
