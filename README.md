@@ -1,4 +1,4 @@
-# canvas-character-sheet
+# Obsidian Canvas Character Sheet
 
 This vault contains the assets, canvas, fonts and CSS snippet required to use the DnD character sheet I created using [Obsidian Canvas](https://obsidian.md/canvas).
 
